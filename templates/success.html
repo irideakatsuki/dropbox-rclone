@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Config Generated — Dropbox rclone</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #f0f2f5;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 2rem 1rem;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0,0,0,.1);
+      padding: 2.5rem;
+      max-width: 600px;
+      width: 100%;
+    }
+
+    .icon { font-size: 2.5rem; text-align: center; margin-bottom: .5rem; }
+
+    h1 {
+      text-align: center;
+      font-size: 1.4rem;
+      color: #1a7f37;
+      margin: 0 0 .5rem;
+    }
+
+    p.subtitle {
+      text-align: center;
+      color: #666;
+      font-size: .9rem;
+      margin: 0 0 2rem;
+    }
+
+    pre {
+      background: #1e1e2e;
+      color: #cdd6f4;
+      padding: 1.25rem 1.5rem;
+      border-radius: 8px;
+      font-size: .85rem;
+      overflow-x: auto;
+      white-space: pre;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+      position: relative;
+    }
+
+    .copy-btn {
+      display: block;
+      width: 100%;
+      padding: .65rem;
+      background: #0061ff;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: .95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background .2s;
+      margin-bottom: 1.5rem;
+    }
+
+    .copy-btn:hover { background: #0050d0; }
+    .copy-btn.copied { background: #1a7f37; }
+
+    .instructions {
+      background: #f8f9fa;
+      border-radius: 6px;
+      padding: 1rem 1.25rem;
+      font-size: .85rem;
+      color: #555;
+      line-height: 1.8;
+    }
+
+    .instructions code {
+      background: #e9ecef;
+      padding: .1rem .35rem;
+      border-radius: 4px;
+      font-family: monospace;
+    }
+
+    .back-link {
+      display: block;
+      text-align: center;
+      margin-top: 1.5rem;
+      color: #0061ff;
+      text-decoration: none;
+      font-size: .9rem;
+    }
+
+    .back-link:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="icon">✅</div>
+    <h1>Config Generated Successfully</h1>
+    <p class="subtitle">
+      Copy the config below and paste it into your rclone configuration file.
+    </p>
+
+    <pre id="config-output">{{ config }}</pre>
+
+    <button class="copy-btn" id="copy-btn" onclick="copyConfig()">
+      Copy to clipboard
+    </button>
+
+    <div class="instructions">
+      <strong>Next steps:</strong><br />
+      1. Open (or create) your rclone config:
+         <code>rclone config file</code><br />
+      2. Paste the block above at the end of the file.<br />
+      3. Test with: <code>rclone ls dropbox:</code><br />
+      4. Keep this config safe — it contains your credentials.
+    </div>
+
+    <a class="back-link" href="/">← Generate another config</a>
+  </div>
+
+  <script>
+    function copyConfig() {
+      const text = document.getElementById("config-output").textContent;
+      const btn = document.getElementById("copy-btn");
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function () {
+          btn.textContent = "Copied!";
+          btn.classList.add("copied");
+          setTimeout(function () {
+            btn.textContent = "Copy to clipboard";
+            btn.classList.remove("copied");
+          }, 2000);
+        }).catch(function () {
+          fallbackCopy(text, btn);
+        });
+      } else {
+        fallbackCopy(text, btn);
+      }
+    }
+
+    function fallbackCopy(text, btn) {
+      const textarea = document.createElement("textarea");
+      textarea.value = text;
+      textarea.style.position = "fixed";
+      textarea.style.opacity = "0";
+      document.body.appendChild(textarea);
+      textarea.focus();
+      textarea.select();
+      try {
+        document.execCommand("copy");
+        btn.textContent = "Copied!";
+        btn.classList.add("copied");
+        setTimeout(function () {
+          btn.textContent = "Copy to clipboard";
+          btn.classList.remove("copied");
+        }, 2000);
+      } catch (err) {
+        btn.textContent = "Copy failed — select manually";
+      } finally {
+        document.body.removeChild(textarea);
+      }
+    }
+  </script>
+</body>
+</html>

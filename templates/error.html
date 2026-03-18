@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Error — Dropbox rclone</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #f0f2f5;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 1rem;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0,0,0,.1);
+      padding: 2.5rem;
+      max-width: 480px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .icon { font-size: 2.5rem; margin-bottom: .5rem; }
+
+    h1 {
+      font-size: 1.4rem;
+      color: #cf222e;
+      margin: 0 0 1rem;
+    }
+
+    .message {
+      background: #fff0ee;
+      border: 1px solid #ffcdd2;
+      border-radius: 6px;
+      padding: 1rem;
+      color: #5c1a1a;
+      font-size: .9rem;
+      margin-bottom: 1.5rem;
+      text-align: left;
+      word-break: break-word;
+    }
+
+    a.btn {
+      display: inline-block;
+      padding: .65rem 1.5rem;
+      background: #0061ff;
+      color: #fff;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: .95rem;
+      transition: background .2s;
+    }
+
+    a.btn:hover { background: #0050d0; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="icon">❌</div>
+    <h1>Something went wrong</h1>
+    <div class="message">{{ message }}</div>
+    <a class="btn" href="/">← Try again</a>
+  </div>
+</body>
+</html>
