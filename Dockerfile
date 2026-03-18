@@ -8,8 +8,12 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY app.py .
 COPY templates/ templates/
 
-ENV PORT=8080
+# Hugging Face Spaces runs containers as a non-root user (uid 1000).
+RUN useradd -m -u 1000 appuser && chown -R appuser /app
+USER appuser
 
-EXPOSE 8080
+ENV PORT=7860
 
-CMD ["gunicorn", "--bind", "0.0.0.0:8080", "--workers", "4", "--threads", "2", "app:app"]
+EXPOSE 7860
+
+CMD ["gunicorn", "--bind", "0.0.0.0:7860", "--workers", "2", "--threads", "2", "app:app"]
