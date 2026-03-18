@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dropbox rclone Config Generator</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #f0f2f5;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 1rem;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0,0,0,.1);
+      padding: 2.5rem;
+      max-width: 480px;
+      width: 100%;
+    }
+
+    .logo { font-size: 2.5rem; text-align: center; margin-bottom: .5rem; }
+
+    h1 {
+      text-align: center;
+      font-size: 1.4rem;
+      color: #1a1a2e;
+      margin: 0 0 .5rem;
+    }
+
+    p.subtitle {
+      text-align: center;
+      color: #666;
+      font-size: .9rem;
+      margin: 0 0 2rem;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      font-size: .875rem;
+      color: #333;
+      margin-bottom: .35rem;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: .65rem .9rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: .95rem;
+      transition: border-color .2s;
+      margin-bottom: 1.2rem;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #0061ff;
+    }
+
+    button[type="submit"] {
+      width: 100%;
+      padding: .75rem;
+      background: #0061ff;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background .2s;
+    }
+
+    button[type="submit"]:hover { background: #0050d0; }
+
+    .help {
+      margin-top: 1.5rem;
+      padding: 1rem;
+      background: #f8f9fa;
+      border-radius: 6px;
+      font-size: .82rem;
+      color: #555;
+      line-height: 1.6;
+    }
+
+    .help a { color: #0061ff; text-decoration: none; }
+    .help a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="logo">📦</div>
+    <h1>Dropbox rclone Config Generator</h1>
+    <p class="subtitle">
+      Enter your Dropbox app credentials to generate an rclone config file.
+    </p>
+
+    <form action="/start" method="post">
+      <label for="client_id">Client ID</label>
+      <input
+        type="text"
+        id="client_id"
+        name="client_id"
+        placeholder="Your Dropbox app key"
+        required
+        autocomplete="off"
+      />
+
+      <label for="client_secret">Client Secret</label>
+      <input
+        type="password"
+        id="client_secret"
+        name="client_secret"
+        placeholder="Your Dropbox app secret"
+        required
+        autocomplete="off"
+      />
+
+      <button type="submit">Authorize with Dropbox →</button>
+    </form>
+
+    <div class="help">
+      <strong>How to get your credentials:</strong><br />
+      1. Go to the
+      <a href="https://www.dropbox.com/developers/apps" target="_blank" rel="noopener noreferrer">
+        Dropbox App Console
+      </a>.<br />
+      2. Create a new app (Full Dropbox or App folder access).<br />
+      3. Add <code>{{ callback_url }}</code> to the
+         <em>Redirect URIs</em> list in your app settings.<br />
+      4. Copy the <em>App key</em> (Client ID) and
+         <em>App secret</em> (Client Secret) here.
+    </div>
+  </div>
+</body>
+</html>
