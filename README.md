@@ -1,3 +1,13 @@
+---
+title: Dropbox Rclone
+emoji: 📦
+colorFrom: blue
+colorTo: gray
+sdk: docker
+app_port: 7860
+pinned: false
+---
+
 # dropbox-rclone
 
 A Python web app that lets users generate their own **rclone Dropbox configs** using their own Dropbox app credentials. Multiple users can use the app simultaneously — each session is completely isolated.
@@ -38,17 +48,34 @@ python app.py
 
 ```bash
 export SECRET_KEY="a-long-random-string"
-export PORT=8080
+export PORT=7860
 
-gunicorn --bind 0.0.0.0:$PORT --workers 4 --threads 2 app:app
+gunicorn --bind 0.0.0.0:$PORT --workers 2 --threads 2 app:app
 ```
 
 ## Docker
 
 ```bash
 docker build -t dropbox-rclone .
-docker run -p 8080:8080 -e SECRET_KEY="a-long-random-string" dropbox-rclone
+docker run -p 7860:7860 -e SECRET_KEY="a-long-random-string" dropbox-rclone
 ```
+
+## Hugging Face Spaces
+
+This repository is ready to deploy on [Hugging Face Spaces](https://huggingface.co/spaces) (free tier) using the Docker SDK.
+
+1. Create a new Space on Hugging Face and choose **Docker** as the SDK.
+2. Push this repository (or the `copilot/deploy-to-hugging-face` branch) to the Space.
+3. In the Space **Settings → Repository secrets**, add a `SECRET_KEY` secret with a long random value:
+   ```
+   python -c "import secrets; print(secrets.token_hex(32))"
+   ```
+4. In your Dropbox app's **OAuth 2 → Redirect URIs**, add:
+   ```
+   https://<your-space-owner>-<your-space-name>.hf.space/callback
+   ```
+   The Space URL is shown on the Space overview page.
+5. Hugging Face will build and start the container automatically. The app will be available at `https://<your-space-owner>-<your-space-name>.hf.space`.
 
 ## Environment variables
 
